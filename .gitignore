@@ -1,15 +1,5 @@
-.project
-*sublime-*
-.DS_Store
-/.settings
-libpeerconnection.log
-*.iml
-node_modules
-**/*npm-debug.log
-.idea
-static/script-tests/jasmine/WebRunner.html
-.grunt
-jsdoc/index.html
-jsdoc/files.html
-jsdoc/symbols
-config/pagestrategy
+# https://git-scm.com/docs/gitignore
+# https://help.github.com/articles/ignoring-files
+# Example .gitignore files: https://github.com/github/gitignore
+/bower_components/
+/node_modules/

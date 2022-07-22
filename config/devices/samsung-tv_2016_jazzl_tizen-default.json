@@ -1,5 +1,5 @@
 {
-  "pageStrategy": "html5",
+  "pageStrategy": "samsungtizen",
   "modules": {
     "base": "antie/devices/browserdevice",
     "modifiers": [

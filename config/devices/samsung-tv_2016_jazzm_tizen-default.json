@@ -1,9 +1,8 @@
-
 {
-    "pageStrategy": "html5",
-    "modules": {
-        "base": "antie/devices/browserdevice",
-        "modifiers": [
+  "pageStrategy": "samsungtizen",
+  "modules": {
+    "base": "antie/devices/browserdevice",
+    "modifiers": [
             "antie/devices/anim/css3",
             "antie/devices/mediaplayer/html5",
             "antie/devices/mediaplayer/live/seekable",

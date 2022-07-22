@@ -6,78 +6,95 @@
 
 //Logs to via an XML HTTP Request ( XHR )
 define(
-    'antie/devices/logging/xhr',
-    [
+  'antie/devices/logging/xhr', [
         'module',
         'antie/runtimecontext',
         'antie/devices/device'
     ],
-    function(Module, RuntimeContext, Device) {
-        'use strict';
+  function (Module, RuntimeContext, Device) {
+    'use strict';
 
-        function zeroFill(number, width) {
-            width -= number.toString().length;
-            if (width > 0){
-                return new Array( width + (/\./.test( number ) ? 2 : 1) ).join( '0' ) + number;
-            }
-            return number + ''; // always return a string
-        }
-
-        function sendXHRLogMessage(tag, message){
-            var now = new Date();
-            var timeString = '' + zeroFill( now.getHours(), 2 ) + ':' + zeroFill( now.getMinutes(), 2 ) + ':' + zeroFill( now.getSeconds(), 2 );
-            var messageObj = { command : 'add', message : '[' + timeString + '][' + tag + ']' +  message };
-            xhrPost( '/tvpjsframeworklogging', {}, messageObj );
-        }
-
-        var loggingMethods = {
-            /**
-             * Sets the iterator pointer to the first item
-             */
-            log: function log () {
-                sendXHRLogMessage('LOG', Array.prototype.join.call(arguments, '\n'));
-            },
-            debug: function debug () {
-                sendXHRLogMessage( 'DEBUG', Array.prototype.join.call(arguments, '\n'));
-            },
-            info: function info () {
-                sendXHRLogMessage('INFO', Array.prototype.join.call(arguments, '\n'));
-            },
-            warn: function warn () {
-                sendXHRLogMessage('WARN', Array.prototype.join.call(arguments, '\n'));
-            },
-            error: function error () {
-                sendXHRLogMessage('ERROR', Array.prototype.join.call(arguments, '\n'));
-            }
-        };
-
-        Device.addLoggingStrategy(Module.id, loggingMethods);
-
-        function xhrPost(url, opts, messageObject) {
-
-            var http = new XMLHttpRequest();
-            var jsonMessage = JSON.stringify(messageObject);
-
-            http.open('POST', url, true);
-
-            //Send the proper header information along with the request
-            http.setRequestHeader('Content-type', 'application/json; charset=utf-8');
-
-            http.onreadystatechange = function() {//Call a function when the state changes.
-                if (this.readyState === 4) {
-                    this.onreadystatechange = null;
-                    if (this.status === 200) {
-                        if (opts.onLoad) {
-                            opts.onOkay(this.responseText);
-                        }
-                    } else {
-                        if (opts.onError) {
-                            opts.onError(this.responseText, this.status);
-                        }
-                    }
-                }
-            };
-            http.send( jsonMessage );
-        }
+    function zeroFill(number, width) {
+      width -= number.toString().length;
+      if (width > 0) {
+        return new Array(width + (/\./.test(number) ? 2 : 1)).join('0') + number;
+      }
+      return number + ''; // always return a string
     }
+
+    function sendXHRLogMessage(tag, message) {
+      var now = new Date();
+      var timeString = '' + zeroFill(now.getHours(), 2) + ':' + zeroFill(now.getMinutes(), 2) + ':' + zeroFill(now.getSeconds(), 2);
+      var messageObj = {
+        command: 'add',
+        message: '[' + timeString + '][' + tag + ']' + message
+      };
+      //      xhrPost('/tvpjsframeworklogging', {}, messageObj);
+      //      xhrGet('http://192.168.140.157:1337/log/', {}, {});
+      xhrGet('http://localhost:1337/log/', {}, messageObj);
+    }
+
+    var loggingMethods = {
+      /**
+       * Sets the iterator pointer to the first item
+       */
+      log: function log() {
+        sendXHRLogMessage('LOG', Array.prototype.join.call(arguments, '\n'));
+      },
+      debug: function debug() {
+        sendXHRLogMessage('DEBUG', Array.prototype.join.call(arguments, '\n'));
+      },
+      info: function info() {
+        sendXHRLogMessage('INFO', Array.prototype.join.call(arguments, '\n'));
+      },
+      warn: function warn() {
+        //        sendXHRLogMessage('_', "_");
+        sendXHRLogMessage('WARN', Array.prototype.join.call(arguments, '\n'));
+      },
+      error: function error() {
+        sendXHRLogMessage('ERROR', Array.prototype.join.call(arguments, '\n'));
+      }
+    };
+
+    Device.addLoggingStrategy(Module.id, loggingMethods);
+
+    function xhrPost(url, opts, messageObject) {
+      var http = new XMLHttpRequest();
+      var jsonMessage = JSON.stringify(messageObject);
+
+      http.open('POST', url, true);
+
+      //Send the proper header information along with the request
+      http.setRequestHeader('Content-type', 'application/json; charset=utf-8');
+
+      http.onreadystatechange = function () { //Call a function when the state changes.
+        if (this.readyState === 4) {
+          this.onreadystatechange = null;
+          if (this.status === 200) {
+            if (opts.onLoad) {
+              opts.onOkay(this.responseText);
+            }
+          } else {
+            if (opts.onError) {
+              opts.onError(this.responseText, this.status);
+            }
+          }
+        }
+      };
+      http.send(jsonMessage);
+    }
+
+    function xhrGet(url, opts, messageObject) {
+      var jsonMessage = JSON.stringify(messageObject);
+      var endpoint = "http://192.168.140.157:1337/log/" + encodeURIComponent(jsonMessage);
+      RuntimeContext.getDevice().loadURL(endpoint, {
+        onLoad: function (responseText) {
+          //          success && success(responseText);
+        },
+        onError: function (responseText) {
+          //          failure && failure(responseText);
+        }
+      });
+    }
+  }
 );

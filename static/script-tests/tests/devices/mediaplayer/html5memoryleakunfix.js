@@ -6,8 +6,6 @@
 (function() {
     this.HTML5MemoryLeakUnfixMediaPlayerTests = AsyncTestCase('HTML5MemoryLeakUnfixMediaPlayer');
 
-    var sourceContainer = document.createElement('div');
-
     var config = {'modules':{'base':'antie/devices/browserdevice','modifiers':['antie/devices/mediaplayer/html5memoryleakunfix']}, 'input':{'map':{}},'layouts':[{'width':960,'height':540,'module':'fixtures/layouts/default','classes':['browserdevice540p']}],'deviceConfigurationKey':'devices-html5-1'};
 
     // ---------------
@@ -27,7 +25,7 @@
         expectAsserts(2);
         var self = this;
         this.runMediaPlayerTest(this, queue, function (MediaPlayer) {
-            self._mediaPlayer.initialiseMedia(MediaPlayer.TYPE.VIDEO, 'http://testurl/', 'video/mp4', sourceContainer);
+            self._mediaPlayer.setSource(MediaPlayer.TYPE.VIDEO, 'http://testurl/', 'video/mp4');
             self.stubCreateElementResults.video.load.reset();
             self.sandbox.stub(self.stubCreateElementResults.video, 'removeAttribute');
 

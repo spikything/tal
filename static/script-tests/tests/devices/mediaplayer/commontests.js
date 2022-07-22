@@ -12,8 +12,6 @@ window.commonTests.mediaPlayer.all = window.commonTests.mediaPlayer.all || { };
 window.commonTests.mediaPlayer.all.mixinTests = function (testCase, mediaPlayerDeviceModifierRequireName, config, deviceMockingHooks) {
     var mixins = {};
 
-    var sourceContainer = document.createElement('div');
-
     // ********************************************
     // ********* Device overriding tests **********
     // ********************************************
@@ -241,11 +239,11 @@ window.commonTests.mediaPlayer.all.mixinTests = function (testCase, mediaPlayerD
     mixins.testCallingResumeInEmptyStateIsAnError = makeApiCallCausesErrorTest(getToEmptyState, 'resume');
     mixins.testCallingStopInEmptyStateIsAnError = makeApiCallCausesErrorTest(getToEmptyState, 'stop');
 
-    mixins.testCallingInitialiseMediaInEmptyStateGoesToStoppedState = function (queue) {
+    mixins.testCallingSetSourceInEmptyStateGoesToStoppedState = function (queue) {
         expectAsserts(10);
         doTest(this, queue, function (MediaPlayer) {
             getToEmptyState.call(this, MediaPlayer);
-            this._mediaPlayer.initialiseMedia(MediaPlayer.TYPE.VIDEO, 'testUrl', 'testMimeType', sourceContainer);
+            this._mediaPlayer.setSource(MediaPlayer.TYPE.VIDEO, 'testUrl', 'testMimeType');
             assertEquals(MediaPlayer.STATE.STOPPED, this._mediaPlayer.getState());
             assertLatestEvent(this, {
                 state: MediaPlayer.STATE.STOPPED,
@@ -275,7 +273,7 @@ window.commonTests.mediaPlayer.all.mixinTests = function (testCase, mediaPlayerD
     // *******************************************
 
     var getToStoppedState = function (MediaPlayer) {
-        this._mediaPlayer.initialiseMedia(MediaPlayer.TYPE.VIDEO, 'testUrl', 'testMimeType', sourceContainer);
+        this._mediaPlayer.setSource(MediaPlayer.TYPE.VIDEO, 'testUrl', 'testMimeType');
         assertEquals(MediaPlayer.STATE.STOPPED, this._mediaPlayer.getState());
     };
 
@@ -286,7 +284,7 @@ window.commonTests.mediaPlayer.all.mixinTests = function (testCase, mediaPlayerD
     mixins.testGetSeekableRangeReturnsUndefinedInStoppedState = makeGetMethodReturnsUndefinedTest(getToStoppedState, 'getSeekableRange');
     mixins.testGetDurationReturnsUndefinedInStoppedState = makeGetMethodReturnsUndefinedTest(getToStoppedState, 'getDuration');
 
-    mixins.testCallingInitialiseMediaInStoppedStateIsAnError = makeApiCallCausesErrorTest(getToStoppedState, 'initialiseMedia');
+    mixins.testCallingSetSourceInStoppedStateIsAnError = makeApiCallCausesErrorTest(getToStoppedState, 'setSource');
     mixins.testCallingPlayFromInStoppedStateIsAnError = makeApiCallCausesErrorTest(getToStoppedState, 'playFrom');
     mixins.testCallingPauseInStoppedStateIsAnError = makeApiCallCausesErrorTest(getToStoppedState, 'pause');
     mixins.testCallingResumeInStoppedStateIsAnError = makeApiCallCausesErrorTest(getToStoppedState, 'resume');
@@ -365,7 +363,7 @@ window.commonTests.mediaPlayer.all.mixinTests = function (testCase, mediaPlayerD
     // *******************************************
 
     var getToBufferingState = function (MediaPlayer) {
-        this._mediaPlayer.initialiseMedia(MediaPlayer.TYPE.VIDEO, 'testUrl', 'testMimeType', sourceContainer);
+        this._mediaPlayer.setSource(MediaPlayer.TYPE.VIDEO, 'testUrl', 'testMimeType');
         this._mediaPlayer.beginPlaybackFrom(0);
         assertEquals(MediaPlayer.STATE.BUFFERING, this._mediaPlayer.getState());
     };
@@ -375,7 +373,7 @@ window.commonTests.mediaPlayer.all.mixinTests = function (testCase, mediaPlayerD
 
     // Availability of getCurrentTime(), getSeekableRange() and getDuration() are device-specific at this point.
 
-    mixins.testCallingInitialiseMediaInBufferingStateIsAnError = makeApiCallCausesErrorTest(getToBufferingState, 'initialiseMedia');
+    mixins.testCallingSetSourceInBufferingStateIsAnError = makeApiCallCausesErrorTest(getToBufferingState, 'setSource');
     mixins.testCallingBeginPlaybackInBufferingStateIsAnError = makeApiCallCausesErrorTest(getToBufferingState, 'beginPlayback');
     mixins.testCallingBeginPlaybackFromInBufferingStateIsAnError = makeApiCallCausesErrorTest(getToBufferingState, 'beginPlaybackFrom');
     mixins.testCallingResetInBufferingStateIsAnError = makeApiCallCausesErrorTest(getToBufferingState, 'reset');
@@ -453,7 +451,7 @@ window.commonTests.mediaPlayer.all.mixinTests = function (testCase, mediaPlayerD
     mixins.testWhenBeginPlaybackFromMiddleOfMediaAndBufferingFinishesThenWeGoToPlayingFromSpecifiedPoint = function (queue) {
         expectAsserts(10);
         doTest(this, queue, function (MediaPlayer) {
-            this._mediaPlayer.initialiseMedia(MediaPlayer.TYPE.VIDEO, 'testUrl', 'testMimeType', sourceContainer);
+            this._mediaPlayer.setSource(MediaPlayer.TYPE.VIDEO, 'testUrl', 'testMimeType');
             this._mediaPlayer.beginPlaybackFrom(50);
             assertEquals(MediaPlayer.STATE.BUFFERING, this._mediaPlayer.getState());
             deviceMockingHooks.sendMetadata(this._mediaPlayer, 0, { start: 0, end: 100 });
@@ -504,7 +502,7 @@ window.commonTests.mediaPlayer.all.mixinTests = function (testCase, mediaPlayerD
     // *******************************************
 
     var getToPlayingState = function (MediaPlayer) {
-        this._mediaPlayer.initialiseMedia(MediaPlayer.TYPE.VIDEO, 'testUrl', 'testMimeType', sourceContainer);
+        this._mediaPlayer.setSource(MediaPlayer.TYPE.VIDEO, 'testUrl', 'testMimeType');
         this._mediaPlayer.beginPlaybackFrom(0);
         deviceMockingHooks.sendMetadata(this._mediaPlayer, 0, { start: 0, end: 100 });
         deviceMockingHooks.finishBuffering(this._mediaPlayer);
@@ -512,7 +510,7 @@ window.commonTests.mediaPlayer.all.mixinTests = function (testCase, mediaPlayerD
     };
 
     var getToPlayingStateWithLiveMediaType = function (MediaPlayer, mediaType) {
-        this._mediaPlayer.initialiseMedia(mediaType, 'testUrl', 'testMimeType', sourceContainer);
+        this._mediaPlayer.setSource(mediaType, 'testUrl', 'testMimeType');
         this._mediaPlayer.beginPlaybackFrom(0);
         deviceMockingHooks.sendMetadata(this._mediaPlayer, 0, { start: 0, end: 100 });
         deviceMockingHooks.finishBuffering(this._mediaPlayer);
@@ -527,7 +525,7 @@ window.commonTests.mediaPlayer.all.mixinTests = function (testCase, mediaPlayerD
     mixins.testGetSeekableRangeReturnsExpectedValueInPlayingState = makeGetMethodReturnsExpectedValueTest(getToPlayingState, 'getSeekableRange', { start: 0, end: 100 });
     mixins.testGetDurationReturnsExpectedValueInPlayingState = makeGetMethodReturnsExpectedValueTest(getToPlayingState, 'getDuration', 100);
 
-    mixins.testCallingInitialiseMediaInPlayingStateIsAnError = makeApiCallCausesErrorTest(getToPlayingState, 'initialiseMedia');
+    mixins.testCallingSetSourceInPlayingStateIsAnError = makeApiCallCausesErrorTest(getToPlayingState, 'setSource');
     mixins.testCallingResetInPlayingStateIsAnError = makeApiCallCausesErrorTest(getToPlayingState, 'reset');
 
     mixins.testSendMetaDataInPlayingStateStaysInPlayingState = makeDeviceEventStaysInSameStateTest(getToPlayingState, 'sendMetadata');
@@ -681,7 +679,7 @@ window.commonTests.mediaPlayer.all.mixinTests = function (testCase, mediaPlayerD
     // *******************************************
 
     var getToPausedState = function (MediaPlayer) {
-        this._mediaPlayer.initialiseMedia(MediaPlayer.TYPE.VIDEO, 'testUrl', 'testMimeType', sourceContainer);
+        this._mediaPlayer.setSource(MediaPlayer.TYPE.VIDEO, 'testUrl', 'testMimeType');
         this._mediaPlayer.beginPlaybackFrom(0);
         this._mediaPlayer.pause();
         deviceMockingHooks.sendMetadata(this._mediaPlayer, 0, { start: 0, end: 100 });
@@ -697,7 +695,7 @@ window.commonTests.mediaPlayer.all.mixinTests = function (testCase, mediaPlayerD
     mixins.testGetSeekableRangeReturnsExpectedValueInPausedState = makeGetMethodReturnsExpectedValueTest(getToPausedState, 'getSeekableRange', { start: 0, end: 100 });
     mixins.testGetDurationReturnsExpectedValueInPausedState = makeGetMethodReturnsExpectedValueTest(getToPausedState, 'getDuration', 100);
 
-    mixins.testCallingInitialiseMediaInPausedStateIsAnError = makeApiCallCausesErrorTest(getToPausedState, 'initialiseMedia');
+    mixins.testCallingSetSourceInPausedStateIsAnError = makeApiCallCausesErrorTest(getToPausedState, 'setSource');
     mixins.testCallingResetInPausedStateIsAnError = makeApiCallCausesErrorTest(getToPausedState, 'reset');
 
     mixins.testSendMetaDataInPausedStateStaysInPausedState = makeDeviceEventStaysInSameStateTest(getToPausedState, 'sendMetadata');
@@ -769,7 +767,7 @@ window.commonTests.mediaPlayer.all.mixinTests = function (testCase, mediaPlayerD
     // *******************************************
 
     var  getToCompleteState = function (MediaPlayer) {
-        this._mediaPlayer.initialiseMedia(MediaPlayer.TYPE.VIDEO, 'testUrl', 'testMimeType', sourceContainer);
+        this._mediaPlayer.setSource(MediaPlayer.TYPE.VIDEO, 'testUrl', 'testMimeType');
         this._mediaPlayer.beginPlaybackFrom(0);
         deviceMockingHooks.sendMetadata(this._mediaPlayer, 0, { start: 0, end: 100 });
         deviceMockingHooks.finishBuffering(this._mediaPlayer);
@@ -785,7 +783,7 @@ window.commonTests.mediaPlayer.all.mixinTests = function (testCase, mediaPlayerD
     mixins.testGetDurationReturnsExpectedValueInCompleteState = makeGetMethodReturnsExpectedValueTest(getToCompleteState, 'getDuration', 100);
     mixins.testGetCurrentTimeReturnsExpectedValueInCompleteState = makeGetMethodReturnsExpectedValueTest(getToCompleteState, 'getCurrentTime', 100);
 
-    mixins.testCallingInitialiseMediaInCompleteStateIsAnError = makeApiCallCausesErrorTest(getToCompleteState, 'initialiseMedia');
+    mixins.testCallingSetSourceInCompleteStateIsAnError = makeApiCallCausesErrorTest(getToCompleteState, 'setSource');
     mixins.testCallingPauseInCompleteStateIsAnError = makeApiCallCausesErrorTest(getToCompleteState, 'pause');
     mixins.testCallingResumeInCompleteStateIsAnError = makeApiCallCausesErrorTest(getToCompleteState, 'resume');
     mixins.testCallingResetInCompleteStateIsAnError = makeApiCallCausesErrorTest(getToCompleteState, 'reset');
@@ -842,7 +840,7 @@ window.commonTests.mediaPlayer.all.mixinTests = function (testCase, mediaPlayerD
     mixins.testGetSeekableRangeReturnsUndefinedInErrorState = makeGetMethodReturnsUndefinedTest(getToErrorState, 'getSeekableRange');
     mixins.testGetDurationReturnsUndefinedInErrorState = makeGetMethodReturnsUndefinedTest(getToErrorState, 'getDuration');
 
-    mixins.testCallingInitialiseMediaInErrorStateIsAnError = makeApiCallCausesErrorTest(getToErrorState, 'initialiseMedia');
+    mixins.testCallingSetSourceInErrorStateIsAnError = makeApiCallCausesErrorTest(getToErrorState, 'setSource');
     mixins.testCallingPlayFromInErrorStateIsAnError = makeApiCallCausesErrorTest(getToErrorState, 'playFrom');
     mixins.testCallingPauseInErrorStateIsAnError = makeApiCallCausesErrorTest(getToErrorState, 'pause');
     mixins.testCallingResumeInErrorStateIsAnError = makeApiCallCausesErrorTest(getToErrorState, 'resume');
@@ -860,9 +858,9 @@ window.commonTests.mediaPlayer.all.mixinTests = function (testCase, mediaPlayerD
     mixins.testWhenBufferingFinishesDuringErrorWeContinueToBeInError = function (queue) {
         expectAsserts(2);
         doTest(this, queue, function (MediaPlayer) {
-            this._mediaPlayer.initialiseMedia(MediaPlayer.TYPE.VIDEO, 'http://testurl/', 'video/mp4', sourceContainer);
+            this._mediaPlayer.setSource(MediaPlayer.TYPE.VIDEO, 'http://testurl/', 'video/mp4');
             try {
-                this._mediaPlayer.initialiseMedia(MediaPlayer.TYPE.VIDEO, 'http://testurl/', 'video/mp4', sourceContainer);
+                this._mediaPlayer.setSource(MediaPlayer.TYPE.VIDEO, 'http://testurl/', 'video/mp4');
             } catch (e) {}
             assertEquals(MediaPlayer.STATE.ERROR, this._mediaPlayer.getState());
             deviceMockingHooks.sendMetadata(this._mediaPlayer, 0, { start: 0, end: 100 });
@@ -907,9 +905,9 @@ window.commonTests.mediaPlayer.all.mixinTests = function (testCase, mediaPlayerD
         doTest(this, queue, function (MediaPlayer) {
             var errorStub = this.sandbox.stub();
             this.sandbox.stub(this.device, 'getLogger').returns({error: errorStub});
-            this._mediaPlayer.initialiseMedia(MediaPlayer.TYPE.VIDEO, 'http://testurl/', 'video/mp4', sourceContainer);
+            this._mediaPlayer.setSource(MediaPlayer.TYPE.VIDEO, 'http://testurl/', 'video/mp4');
             try {
-                this._mediaPlayer.initialiseMedia(MediaPlayer.TYPE.VIDEO, 'http://testurl/', 'video/mp4', sourceContainer);
+                this._mediaPlayer.setSource(MediaPlayer.TYPE.VIDEO, 'http://testurl/', 'video/mp4');
             } catch (e) {}
             assert(errorStub.calledWith('Cannot set source unless in the \'EMPTY\' state'));
         });
@@ -943,7 +941,7 @@ window.commonTests.mediaPlayer.all.mixinTests = function (testCase, mediaPlayerD
                 warn: warnStub
             });
 
-            this._mediaPlayer.initialiseMedia(MediaPlayer.TYPE.VIDEO, 'http://testurl/', 'video/mp4', sourceContainer);
+            this._mediaPlayer.setSource(MediaPlayer.TYPE.VIDEO, 'http://testurl/', 'video/mp4');
             this._mediaPlayer.beginPlaybackFrom(0);
             this._mediaPlayer.playFrom(50);
             deviceMockingHooks.sendMetadata(this._mediaPlayer, 0, { start: 0, end: 0 });
@@ -964,7 +962,7 @@ window.commonTests.mediaPlayer.all.mixinTests = function (testCase, mediaPlayerD
                 warn: warnStub
             });
 
-            this._mediaPlayer.initialiseMedia(MediaPlayer.TYPE.VIDEO, 'http://testurl/', 'video/mp4', sourceContainer);
+            this._mediaPlayer.setSource(MediaPlayer.TYPE.VIDEO, 'http://testurl/', 'video/mp4');
             this._mediaPlayer.beginPlaybackFrom(0);
             deviceMockingHooks.sendMetadata(this._mediaPlayer, 0, { start: 0, end: 0 });
             deviceMockingHooks.finishBuffering(this._mediaPlayer);
@@ -984,7 +982,7 @@ window.commonTests.mediaPlayer.all.mixinTests = function (testCase, mediaPlayerD
                 warn: warnStub
             });
 
-            this._mediaPlayer.initialiseMedia(MediaPlayer.TYPE.VIDEO, 'http://testurl/', 'video/mp4', sourceContainer);
+            this._mediaPlayer.setSource(MediaPlayer.TYPE.VIDEO, 'http://testurl/', 'video/mp4');
             this._mediaPlayer.beginPlaybackFrom(0);
             deviceMockingHooks.sendMetadata(this._mediaPlayer, 0, { start: 0, end: 100 });
             deviceMockingHooks.finishBuffering(this._mediaPlayer);
@@ -1004,7 +1002,7 @@ window.commonTests.mediaPlayer.all.mixinTests = function (testCase, mediaPlayerD
                 warn: warnStub
             });
 
-            this._mediaPlayer.initialiseMedia(MediaPlayer.TYPE.VIDEO, 'http://testurl/', 'video/mp4', sourceContainer);
+            this._mediaPlayer.setSource(MediaPlayer.TYPE.VIDEO, 'http://testurl/', 'video/mp4');
             this._mediaPlayer.beginPlayback();
             deviceMockingHooks.sendMetadata(this._mediaPlayer, 0, { start: 0, end: 60 });
             deviceMockingHooks.finishBuffering(this._mediaPlayer);
@@ -1025,7 +1023,7 @@ window.commonTests.mediaPlayer.all.mixinTests = function (testCase, mediaPlayerD
                 warn: warnStub
             });
 
-            this._mediaPlayer.initialiseMedia(MediaPlayer.TYPE.VIDEO, 'http://testurl/', 'video/mp4', sourceContainer);
+            this._mediaPlayer.setSource(MediaPlayer.TYPE.VIDEO, 'http://testurl/', 'video/mp4');
             this._mediaPlayer.beginPlaybackFrom(50);
             deviceMockingHooks.sendMetadata(this._mediaPlayer, 0, { start: 0, end: 100 });
             deviceMockingHooks.finishBuffering(this._mediaPlayer);

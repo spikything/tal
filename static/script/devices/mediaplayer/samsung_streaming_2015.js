@@ -27,7 +27,7 @@ require.def(
             /**
             * @inheritDoc
             */
-            initialiseMedia: function initialiseMedia (mediaType, url, mimeType) {
+            setSource: function setSource (mediaType, url, mimeType) {
                 this._logger = RuntimeContext.getDevice().getLogger();
                 if (this.getState() === MediaPlayer.STATE.EMPTY) {
 

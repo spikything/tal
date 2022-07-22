@@ -41,7 +41,10 @@ define('antie/devices/parentalguidance/basepghandler',
              */
             isConfigurable: function isConfigurable () {
                 throw new Error('IsConfigurable method has not been implemented.');
-            }
+            },
+      isPinRequired: function isPinRequired() {
+        throw new Error('isPinRequired method has not been implemented.');
+      }
         });
 
         return BasePgHandler;

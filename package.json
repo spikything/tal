@@ -1,21 +1,205 @@
 {
-  "name": "tal",
-  "license": "Apache-2.0",
-  "version": "10.0.0",
-  "repository": {
+  "_from": "github:fmtvp/tal",
+  "_id": "tal@8.1.1",
+  "_inBundle": false,
+  "_integrity": "",
+  "_location": "/tal",
+  "_phantomChildren": {},
+  "_requested": {
     "type": "git",
-    "url": "https://github.com/bbc/tal.git"
+    "raw": "fmtvp/tal",
+    "rawSpec": "fmtvp/tal",
+    "saveSpec": "github:fmtvp/tal",
+    "fetchSpec": null,
+    "gitCommittish": null
   },
+  "_requiredBy": [
+    "#USER",
+    "/"
+  ],
+  "_resolved": "github:fmtvp/tal#c7f78176c83cfb6f56aafdce29cb7a16c42bd04a",
+  "_spec": "fmtvp/tal",
+  "_where": "/Users/raphaelcourtenay/Projects/tal/talexample",
+  "bugs": {
+    "url": "https://github.com/bbc/tal/issues"
+  },
+  "bundleDependencies": false,
+  "contributors": [
+    {
+      "name": "dhurrell",
+      "url": "https://github.com/dhurrell"
+    },
+    {
+      "name": "jonpbbc",
+      "url": "https://github.com/jonpbbc"
+    },
+    {
+      "name": "tsadler1988",
+      "url": "https://github.com/tsadler1988"
+    },
+    {
+      "name": "sdclibbery",
+      "url": "https://github.com/sdclibbery"
+    },
+    {
+      "name": "rthompson1991",
+      "url": "https://github.com/rthompson1991"
+    },
+    {
+      "name": "rsjtaylor",
+      "url": "https://github.com/rsjtaylor"
+    },
+    {
+      "name": "mackstar",
+      "url": "https://github.com/mackstar"
+    },
+    {
+      "name": "LewisGoodwin",
+      "url": "https://github.com/LewisGoodwin"
+    },
+    {
+      "name": "jmalk",
+      "url": "https://github.com/jmalk"
+    },
+    {
+      "name": "ianarundale",
+      "url": "https://github.com/ianarundale"
+    },
+    {
+      "name": "landeiro",
+      "url": "https://github.com/landeiro"
+    },
+    {
+      "name": "drrobharper",
+      "url": "https://github.com/drrobharper"
+    },
+    {
+      "name": "subsidel",
+      "url": "https://github.com/subsidel"
+    },
+    {
+      "name": "JohnBogart",
+      "url": "https://github.com/JohnBogart"
+    },
+    {
+      "name": "bastuijnman",
+      "url": "https://github.com/bastuijnman"
+    },
+    {
+      "name": "davidbuckhurst",
+      "url": "https://github.com/davidbuckhurst"
+    },
+    {
+      "name": "ryanwaudby",
+      "url": "https://github.com/ryanwaudby"
+    },
+    {
+      "name": "andrewjackson001",
+      "url": "https://github.com/andrewjackson001"
+    },
+    {
+      "name": "johnbeech",
+      "url": "https://github.com/johnbeech"
+    },
+    {
+      "name": "povilas0",
+      "url": "https://github.com/povilas0"
+    },
+    {
+      "name": "laskop04",
+      "url": "https://github.com/laskop04"
+    },
+    {
+      "name": "MamathaNair",
+      "url": "https://github.com/MamathaNair"
+    },
+    {
+      "name": "tgandrews",
+      "url": "https://github.com/tgandrews"
+    },
+    {
+      "name": "oncletom",
+      "url": "https://github.com/oncletom"
+    },
+    {
+      "name": "lukejpreston",
+      "url": "https://github.com/lukejpreston"
+    },
+    {
+      "name": "drpacman",
+      "url": "https://github.com/drpacman"
+    },
+    {
+      "name": "HSenane",
+      "url": "https://github.com/HSenane"
+    },
+    {
+      "name": "mlin6436",
+      "url": "https://github.com/mlin6436"
+    },
+    {
+      "name": "KevRMitchell",
+      "url": "https://github.com/KevRMitchell"
+    },
+    {
+      "name": "domtronn",
+      "url": "https://github.com/domtronn"
+    },
+    {
+      "name": "chrisn",
+      "url": "https://github.com/chrisn"
+    },
+    {
+      "name": "joeyjojo",
+      "url": "https://github.com/joeyjojo"
+    },
+    {
+      "name": "cheunr02",
+      "url": "https://github.com/cheunr02"
+    },
+    {
+      "name": "DNR500",
+      "url": "https://github.com/DNR500"
+    },
+    {
+      "name": "brownj45",
+      "url": "https://github.com/brownj45"
+    },
+    {
+      "name": "itamayo",
+      "url": "https://github.com/itamayo"
+    },
+    {
+      "name": "rickhuby",
+      "url": "https://github.com/rickhuby"
+    },
+    {
+      "name": "sergiopanseri",
+      "url": "https://github.com/sergiopanseri"
+    },
+    {
+      "name": "watsond88",
+      "url": "https://github.com/watsond88"
+    },
+    {
+      "name": "AlexChesters",
+      "url": "https://github.com/AlexChesters"
+    },
+    {
+      "name": "MarkMurrayBBC",
+      "url": "https://github.com/MarkMurrayBBC"
+    },
+    {
+      "name": "ShiningTrapez",
+      "url": "https://github.com/ShiningTrapez"
+    }
+  ],
+  "dependencies": {
+    "es5-shim": "^4.5.9",
+    "tal-page-strategies": "git+https://4e2a7a82dab7465cf226dbc5722d74894d086d04:x-oauth-basic@github.com/SimpleStream/hybridtv-tal-framework-page-strategies.git#master"
+  },
+  "deprecated": false,
   "description": "Library for building applications for Connected TV devices",
-  "main": "./node/antieframework.js",
-  "directories": {
-    "node": "./node",
-    "config": "./config",
-    "static": "./static/script"
-  },
-  "engines": {
-    "npm": "~3.10.3"
-  },
   "devDependencies": {
     "eslint-plugin-jasmine": "^1.6.0",
     "eslint-plugin-requirejs": "^0.6.0",
@@ -30,13 +214,42 @@
     "grunt-text-replace": "^0.4.0",
     "gruntify-eslint": "^1.3.0"
   },
-  "dependencies": {
-    "es5-shim": "^4.5.9",
-    "tal-page-strategies": "1.1.7"
+  "directories": {
+    "node": "./node",
+    "config": "./config",
+    "static": "./static/script"
+  },
+  "engines": {
+    "npm": "~3.10.3"
+  },
+  "homepage": "https://github.com/bbc/tal#readme",
+  "license": "Apache-2.0",
+  "main": "./node/antieframework.js",
+  "name": "tal",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/bbc/tal.git"
   },
   "scripts": {
     "test": "grunt full --verbose",
-    "test:unit": "grunt jasmine",
-    "test:lint": "grunt lint"
-  }
+    "test:lint": "grunt lint",
+    "test:unit": "grunt jasmine"
+  },
+  "version": "8.1.1",
+  "warnings": [
+    {
+      "code": "ENOTSUP",
+      "required": {
+        "npm": "~3.10.3"
+      },
+      "pkgid": "tal@8.1.1"
+    },
+    {
+      "code": "ENOTSUP",
+      "required": {
+        "npm": "~3.10.3"
+      },
+      "pkgid": "tal@8.1.1"
+    }
+  ]
 }

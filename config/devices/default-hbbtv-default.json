@@ -4,19 +4,20 @@
     "base": "antie/devices/browserdevice",
     "modifiers": [
       "antie/devices/anim/styletopleft",
-      "antie/devices/mediaplayer/cehtml",
+      "antie/devices/mediaplayer/html5",
       "antie/devices/mediaplayer/live/none",
       "antie/devices/data/nativejson",
       "antie/devices/logging/onscreen",
       "antie/devices/logging/xhr",
       "antie/devices/logging/jstestdriver",
       "antie/devices/storage/cookie",
-      "antie/devices/exit/history",
+      "antie/devices/exit/closewindow",
       "antie/devices/parentalguidance/appdefaultpghandler"
     ]
   },
   "logging": {
-    "level": "none"
+    "level": "all",
+    "strategy": "onscreen"
   },
   "streaming": {
     "video": {
@@ -59,8 +60,18 @@
       "412": "REWIND",
       "413": "STOP",
       "415": "PLAY",
+      "179": "PLAY_PAUSE",
+      "463": "PLAY_PAUSE",
       "467": "SUBTITLE",
       "473": "FAST_FWD",
+      "417": "FAST_FWD",
+      "72": "FAST_FWD",
+      "116": "FAST_FWD",
+      "228": "FAST_FWD",
+      "131": "FAST_FWD",
+      "465": "FAST_FWD",
+      "202": "FAST_FWD",
+      "408": "FAST_FWD",
       "40": "DOWN",
       "19": "PAUSE",
       "13": "ENTER",

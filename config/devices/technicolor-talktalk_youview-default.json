@@ -1,0 +1,142 @@
+{
+  "pageStrategy": "hbbtvatv",
+  "modules": {
+    "base": "antie/devices/browserdevice",
+    "modifiers": [
+      "antie/devices/anim/css3",
+              "antie/devices/mediaplayer/html5_youview_reporting_multi",
+              "antie/devices/mediaplayer/live/seekable",
+              "antie/devices/data/nativejson",
+              "antie/devices/broadcastsource/hbbtvsource",
+              "antie/devices/storage/cookie",
+              "antie/devices/logging/consumelog",
+              "antie/devices/logging/onscreen",
+              "antie/devices/exit/closewindow",
+              "antie/devices/parentalguidance/youviewpghandler"
+    ]
+  },
+  "logging": {
+    "level": "none"
+  },
+  "statReporters": [
+            "tvpjslib/stats/avreporters/youviewreporter"
+          ],
+  "streaming": {
+    "video": {
+      "mediaURIFormat": "%href%",
+      "supported": [
+        {
+          "protocols": [
+            "http"
+          ],
+          "encodings": [
+            "h264"
+          ],
+          "transferFormat": [
+            "hls",
+            "plain"
+          ],
+          "maximumVideoLines": 1080
+        }
+      ]
+    },
+    "audio": {
+      "mediaURIFormat": "%href%",
+      "supported": [
+        {
+          "encodings": [
+            "aac"
+          ],
+          "protocols": [
+            "http"
+          ],
+          "maximumBitRate": 192
+        }
+      ]
+    }
+  },
+  "input": {
+    "map": {
+      "402": "PLAY_PAUSE",
+      "464": "AD",
+      "8": "BACK",
+      "412": "REWIND",
+      "413": "STOP",
+      "415": "PLAY",
+      "425": "NEXT",
+      "424": "PREV",
+      "460": "SUBTITLE",
+      "417": "FAST_FWD",
+      "40": "DOWN",
+      "19": "PAUSE",
+      "13": "ENTER",
+      "39": "RIGHT",
+      "38": "UP",
+      "37": "LEFT",
+      "403": "RED",
+      "404": "GREEN",
+      "405": "YELLOW",
+      "406": "BLUE",
+      "47": "HELP",
+      "457": "INFO",
+      "460": "SUBTITLE",
+      "48": "0",
+      "49": "1",
+      "50": "2",
+      "51": "3",
+      "52": "4",
+      "53": "5",
+      "54": "6",
+      "55": "7",
+      "56": "8",
+      "57": "9"
+    }
+  },
+  "accessibility": {
+    "captions": {
+      "supported": [
+        "application/ttaf+xml"
+      ]
+    }
+  },
+  "layouts": [
+    {
+      "width": 960,
+      "height": 540,
+      "module": "whitelabelapp/appui/layouts/540p",
+      "classes": [
+                "browserdevice540p"
+            ]
+        },
+    {
+      "width": 1280,
+      "height": 720,
+      "module": "whitelabelapp/appui/layouts/720p",
+      "classes": [
+                "browserdevice720p"
+            ]
+        },
+    {
+      "width": 1920,
+      "height": 1080,
+      "module": "whitelabelapp/appui/layouts/1080p",
+      "classes": [
+                "browserdevice1080p"
+            ]
+        }
+    ],
+  "networking": {
+    "supportsJSONP": true,
+    "supportsCORS": true
+  },
+  "broadcast": {
+    "aitProfile": "hbbtv_15"
+  },
+  "capabilities": ["dial_capable"],
+  "statLabels": {
+    "deviceType": "stb",
+    "serviceType": "managed_service",
+    "osType": "Android & Linux OS",
+    "browserType": "chrome"
+  }
+}
