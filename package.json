@@ -196,7 +196,7 @@
   ],
   "dependencies": {
     "es5-shim": "^4.5.9",
-    "tal-page-strategies": "git+https://4e2a7a82dab7465cf226dbc5722d74894d086d04:x-oauth-basic@github.com/SimpleStream/hybridtv-tal-framework-page-strategies.git#master"
+    "tal-page-strategies": "git+https://github.com/SimpleStream/hybridtv-tal-framework-page-strategies.git#master"
   },
   "deprecated": false,
   "description": "Library for building applications for Connected TV devices",
